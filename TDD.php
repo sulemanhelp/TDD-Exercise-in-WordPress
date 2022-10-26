@@ -21,4 +21,5 @@ if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require_once __DIR__ . '/vendor/autoload.php';
 }
 
-$suleman_primary_category = new Primary_Category( __FILE__ );
+$register = new Register();
+$register->init();
