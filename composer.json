@@ -1,0 +1,47 @@
+{
+  "name": "suleman/tdd-plugin",
+  "description": "Plugin for wordpress TDD exercise.",
+  "type": "wordpress-plugin",
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "php": ">=7.4",
+    "composer/installers": "^1.7"
+  },
+  "require-dev": {
+    "10up/wp_mock": "0.4.2",
+    "dealerdirect/phpcodesniffer-composer-installer": "0.7.1",
+    "mockery/mockery": "1.3.1",
+    "php-coveralls/php-coveralls": "2.2.0",
+    "phpcompatibility/phpcompatibility-wp": "2.1.0",
+    "phpunit/phpunit": "8.5.2",
+    "wp-coding-standards/wpcs": "2.3.0",
+    "wpsh/local": "0.2.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Suleman\\TDD\\": "includes/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Suleman\\TDD\\": "tests/php/"
+    }
+  },
+  "scripts": {
+    "lint": [
+      "@composer validate --strict",
+      "phpcs ."
+    ],
+    "test": [
+      "phpunit"
+    ],
+    "build": [
+      "composer install --no-dev --prefer-dist --optimize-autoloader --no-scripts"
+    ]
+  },
+  "config": {
+    "sort-packages": true
+  }
+}
