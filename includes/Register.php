@@ -66,7 +66,16 @@ class Register {
 	 *
 	 * @return \WP_Error
 	 */
-	public function validate_first_name( $errors, $sanitized_user_login, $user_email ){
+	public function validate_first_name( $errors, $sanitized_user_login, $user_email ) {
+
+		$first_name = ! empty( $_POST['first_name'] ) ? $_POST['first_name'] : '';
+		$first_name = preg_replace("/[^a-zA-Z\s]/", "", $first_name );
+		$first_name = trim( sanitize_text_field( $first_name ) );
+
+		if ( empty( $first_name ) || strlen( $first_name ) < 2 ) {
+			$errors->add( 'first_name_error', __( '<strong>ERROR</strong>: Please enter your first name.', 'tdd-plugin' ) );
+			return $errors;
+		}
 
 		return $errors;
 	}
@@ -80,7 +89,15 @@ class Register {
 	 *
 	 * @return \WP_Error
 	 */
-	public function validate_last_name( $errors, $sanitized_user_login, $user_email ){
+	public function validate_last_name( $errors, $sanitized_user_login, $user_email ) {
+		$last_name = ! empty( $_POST['last_name'] ) ? $_POST['last_name'] : '';
+		$last_name = preg_replace("/[^a-zA-Z\s]/", "", $last_name );
+		$last_name = trim( sanitize_text_field( $last_name ) );
+
+		if ( empty( $last_name ) || strlen( $last_name ) < 2 ) {
+			$errors->add( 'last_name_error', __( '<strong>ERROR</strong>: Please enter your last name.', 'tdd-plugin' ) );
+			return $errors;
+		}
 
 		return $errors;
 	}
@@ -92,8 +109,14 @@ class Register {
 	 *
 	 * @return void
 	 */
-	public function save_first_name( $user_id ){
+	public function save_first_name( $user_id ) {
+		$first_name = ! empty( $_POST['first_name'] ) ? $_POST['first_name'] : '';
+		$first_name = preg_replace("/[^a-zA-Z\s]/", "", $first_name );
+		$first_name = trim( sanitize_text_field( $first_name ) );
 
+		if ( ! empty( $first_name ) && strlen( $first_name ) > 2 ) {
+			update_user_meta( $user_id, 'first_name', $first_name );
+		}
 	}
 
 	/**
@@ -103,7 +126,14 @@ class Register {
 	 *
 	 * @return void
 	 */
-	public function save_last_name( $user_id ){
+	public function save_last_name( $user_id ) {
+		$last_name = ! empty( $_POST['last_name'] ) ? $_POST['last_name'] : '';
+		$last_name = preg_replace("/[^a-zA-Z\s]/", "", $last_name );
+		$last_name = trim( sanitize_text_field( $last_name ) );
+
+		if ( ! empty( $last_name ) && strlen( $last_name ) > 2 ) {
+			update_user_meta( $user_id, 'last_name', $last_name );
+		}
 
 	}
 }
